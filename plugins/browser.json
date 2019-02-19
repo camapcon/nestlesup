@@ -1,0 +1,43 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        },
+        "phonegap-plugin-barcodescanner": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.scj.pgapp"
+        }
+    }
+}
