@@ -25,7 +25,7 @@
                       <div class="item-media"><i class="f7-icons">person</i></div>
                       <div class="item-inner">
                           <div class="item-title-row">
-                              <div class="item-title">Tên PG</div>
+                              <div class="item-title">Merchandiser</div>
                           </div>
                           <div class="item-subtitle">{{fullname}}</div>
                       </div>
@@ -39,7 +39,7 @@
                           <div class="item-subtitle">{{workday}}</div>
                       </div>
                   </li>
-                  <li class="item-content">
+                  <!--li class="item-content">
                       <div class="item-media"><i class="f7-icons">world</i></div>
                       <div class="item-inner">
                           <div class="item-title-row">
@@ -47,7 +47,7 @@
                           </div>
                           <div class="item-subtitle">{{location}}</div>
                       </div>
-                  </li>
+                  </li-->
                   <li class="item-content">
                       <div class="item-media"><i class="f7-icons">check_round</i></div>
                       <div class="item-inner">
@@ -77,44 +77,6 @@
                   </li>
               </ul>
           </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">Báo cáo hôm nay</div>
-        <div class="card-content card-content-padding">
-          <table>
-            <thead>
-              <tr>
-                <th width="45%" class="label-cell" align="left">Sản phẩm</th>
-                <th class="numeric-cell" align="center" style="white-space:nowrap;">Tiếp cận</th>
-                <th class="numeric-cell" align="center">Mua</th>
-                <th class="numeric-cell" align="center" style="white-space:nowrap;">Trưng bày</th>
-              </tr>
-              {{#if empty_reports}}
-              {{else}}
-              <tr>
-                <th width="45%" class="label-cell" align="left">Tổng:</th>
-                <th class="numeric-cell" align="center"><span class="badge color-red">{{sum_reports.views}}</span></th>
-                <th class="numeric-cell" align="center"><span class="badge color-red">{{sum_reports.buys}}</span></th>
-                <th class="numeric-cell" align="center"><span class="badge color-red">{{sum_reports.display}}</span></th>
-              </tr>
-              {{/if}}
-            </thead>
-            <tbody>
-              {{#each reports}}
-              <tr>
-                <td class="label-cell" align="left">{{this.product}}</td>
-                <td class="numeric-cell" align="center"><span class="badge">{{this.views}}</span></td>
-                <td class="numeric-cell" align="center"><span class="badge">{{this.buys}}</span></td>
-                <td class="numeric-cell" align="center"><span class="badge">{{this.display}}</span></td>
-              </tr>
-              {{else}}
-              <tr>
-                <td class="label-cell text-color-red" colspan="4" align="center" style="padding:10px;">Bạn chưa gửi báo cáo nào trong hôm nay</td>
-              </tr>
-              {{/each}}
-            </tbody>
-          </table>
         </div>
       </div>
     </div>

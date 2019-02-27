@@ -1,0 +1,182 @@
+<template>
+  <div class="page">
+    <div class="navbar">
+      <div class="navbar-inner sliding">
+        <a href="#" class="link back">
+          <i class="icon icon-back"></i>
+          <span class="ios-only">Quay lại</span>
+        </a>
+        <div class="title">Gửi báo cáo</div>
+        <div class="right">
+          <a href="#" class="link icon-only panel-open" data-panel="right">
+            <i class="icon f7-icons ios-only">menu</i>
+            <i class="icon material-icons md-only">menu</i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="page-content" style="padding-bottom:200px;">
+      <input id="productid" type="hidden" value="{{productid}}"/>
+      <div class="list media-list no-ios-edges">
+          <form id="evalform">
+            <ul>
+                <li class="item-content item-input">
+                  <div class="item-inner">
+                    <div class="item-title item-label">Đánh giá PG</div>
+                    <div class="item-input-wrap input-dropdown-wrap">
+                      <select name="userid" id="userid">
+                        <option>Chọn 1 PG</option>
+                        {{#each $root.preload.pg}}
+                        <option value="{{this.id}}">{{this.fullname}}</option>
+                        {{/each}}
+                      </select>
+                    </div>
+                  </div>
+                </li>
+            </ul>
+            <div class="block">
+              <div class="block-title">Các câu hỏi đánh giá</div>
+              <div class="list accordion-list inset">
+                <ul>
+                  {{#each $root.preload.questions}}
+                  <li class="accordion-item">
+                    <a href="#" class="item-link item-content">
+                      <div class="item-inner">
+                        <div class="item-title"><strong>{{this.item}}</strong> - {{this.evaluation}}</div>
+                      </div>
+                    </a>
+                    <div class="accordion-item-content" style="" aria-hidden="true">
+                      <div class="block">
+                        <p>{{this.questions}}</p>
+                      </div>
+                      <div class="list">
+                        <ul>
+                          <li>
+                            <label class="item-radio item-content">
+                              <input type="radio" name="{{this.code}}" value="5" />
+                              <i class="icon icon-radio"></i>
+                              <div class="item-inner">
+                                <div class="item-title">5/5 Total Yes</div>
+                              </div>
+                            </label>
+                          </li>
+                          <li>
+                            <label class="item-radio item-content">
+                              <input type="radio" name="{{this.code}}" value="4" />
+                              <i class="icon icon-radio"></i>
+                              <div class="item-inner">
+                                <div class="item-title">4/5 Yes</div>
+                              </div>
+                            </label>
+                          </li>
+                          <li>
+                            <label class="item-radio item-content">
+                              <input type="radio" name="{{this.code}}" value="3" />
+                              <i class="icon icon-radio"></i>
+                              <div class="item-inner">
+                                <div class="item-title">3/5 Okay</div>
+                              </div>
+                            </label>
+                          </li>
+                          <li>
+                            <label class="item-radio item-content">
+                              <input type="radio" name="{{this.code}}" value="2" />
+                              <i class="icon icon-radio"></i>
+                              <div class="item-inner">
+                                <div class="item-title">2/5 Not Okay</div>
+                              </div>
+                            </label>
+                          </li>
+                          <li>
+                            <label class="item-radio item-content">
+                              <input type="radio" name="{{this.code}}" value="1" />
+                              <i class="icon icon-radio"></i>
+                              <div class="item-inner">
+                                <div class="item-title">1/5 Not At All</div>
+                              </div>
+                            </label>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </li>
+                  {{/each}}
+                </ul>
+              </div>
+            </div>
+          </form>
+          <div class="block">
+            <p class="row">
+              <button class="col button button-big button-raised button-fill" @click="submit">Gửi đánh giá</button>
+            </p>
+          </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+  return {
+    // Component Methods
+    methods: {
+      showToastBottom: function (text, closed) {
+        var self = this;
+        // Create toast
+        if (!self.toastBottom) {
+          self.toastBottom = self.$app.toast.create({
+            icon: self.$theme.ios ? '<i class="f7-icons">check</i>' : '<i class="material-icons">check</i>',
+            text: text,
+            position: 'center',
+            closeTimeout: 2000,
+            animate: true,
+            on:{
+              closed:closed
+            }
+          });
+        }
+        // Open it
+        self.toastBottom.open();
+      },
+      submit: function () {
+        var self = this;
+        var $ = this.$;
+        var app = this.$app;
+        var router = this.$router;
+        var token = localStorage.getItem("token");
+        var payload = serializeArray(document.getElementById('evalform'));
+        payload['token'] = token;
+        if($('#userid').val()==''){
+          app.dialog.alert('Vui lòng chọn PG để đánh giá', 'Nhắc nhở');
+          return;
+        }
+        app.request.post('http://nestle.liveapps.top/index.php/app/posteval?t=1', payload, function (raw) {
+          try{
+            if(raw=='success'){
+              self.showToastBottom('Đánh giá thành công', function(){
+                router.navigate('/report/', {reloadAll:true, reloadCurrent:true, ignoreCache:true});
+              });
+              return;
+            }
+            app.dialog.alert('Gửi đánh giá không thành công', 'Báo lỗi');
+          }
+          catch(e){
+            app.dialog.alert(e.message, 'Báo lỗi');
+          return;
+          }
+        },function(){
+          app.dialog.alert('Vui lòng kiểm tra lại kết nối', 'Báo lỗi');
+        });
+      },
+    },
+    on: {
+      pageBeforeOut: function () {
+        var self = this;
+        self.$app.toast.close();
+      },
+      pageBeforeRemove: function () {
+        var self = this;
+        // Destroy toasts when page removed
+        if (self.toastBottom) self.toastBottom.destroy();
+      }
+    }
+  }
+</script>
