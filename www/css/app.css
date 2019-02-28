@@ -492,3 +492,6 @@ code {
   padding-top: 24px;
   padding-left: 10px;
 }
+.accordion-item.done{
+  background: #d4ff77;
+}
