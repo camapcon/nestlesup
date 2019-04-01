@@ -44,7 +44,7 @@ var routes = [
           var json = JSON.parse(raw);
           app.data.checkin = json.checkin;
           app.data.checkout = json.checkout;
-          app.data.preload.pg = json.pg;
+          app.data.pg = json.pg;
           resolve(
             {
               componentUrl: './pages/status.html',

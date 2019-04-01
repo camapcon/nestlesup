@@ -39,7 +39,7 @@
                     <div class="item-input-wrap input-dropdown-wrap">
                       <select name="userid" id="userid">
                         <option>Chọn 1 PG</option>
-                        {{#each $root.preload.pg}}
+                        {{#each $root.pg}}
                         <option value="{{this.id}}">{{this.fullname}}</option>
                         {{/each}}
                       </select>
