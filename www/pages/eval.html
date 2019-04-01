@@ -27,6 +27,14 @@
             <ul>
                 <li class="item-content item-input">
                   <div class="item-inner">
+                    <div class="item-title item-label">Tên người đánh giá</div>
+                    <div class="item-input-wrap input-dropdown-wrap">
+                      <input name="merchandiser" id="merchandiser"/>
+                    </div>
+                  </div>
+                </li>
+                <li class="item-content item-input">
+                  <div class="item-inner">
                     <div class="item-title item-label">Đánh giá PG</div>
                     <div class="item-input-wrap input-dropdown-wrap">
                       <select name="userid" id="userid">
@@ -152,6 +160,10 @@
         var token = localStorage.getItem("token");
         var payload = serializeArray(document.getElementById('evalform'));
         payload['token'] = token;
+        if($('#merchandiser').val()==''){
+          app.dialog.alert('Vui lòng nhập tên người đánh giá (merchandiser)', 'Nhắc nhở');
+          return;
+        }
         if($('#userid').val()==''){
           app.dialog.alert('Vui lòng chọn PG để đánh giá', 'Nhắc nhở');
           return;
